@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HelloController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,13 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//laravel8から、ここのrouteをちゃんとしたものにしないと見つけてくれないらしい
-Route::get('hello', 'App\Http\Controllers\HelloController@index');
+Route::get('hello', [HelloController::class, 'index']);
 
-Route::post('hello', 'App\Http\Controllers\HelloController@post');
+Route::post('hello', [HelloController::class, 'post']);
 
-
-
-// Route::get('hello/other', 'App\Http\Controllers\HelloController@other');
 
 
