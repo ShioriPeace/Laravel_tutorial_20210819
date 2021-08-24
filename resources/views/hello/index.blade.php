@@ -10,11 +10,11 @@
 
     <body>
         <h1>Blade/Index</h1>
-        <p>foreachディレクティブの例</p>
-        <ol>
-            @foreach($data as $item)
-            <li>{{ $item }}</li>
-            @endforeach
-        </ol>
+        <p>{{$msg}}</p>
+        <form method="POST" action="/hello">
+            @csrf
+            <input type="text" name="msg">
+            <input type="submit">
+        </form>
     </body>
 </html>
