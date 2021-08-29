@@ -9,10 +9,8 @@
 
 @section('content')
     <p>ここが本文のコンテンツ</p>
-
-    <ul>
-        @each('components.item', $data, 'item')
-    </ul>
+    <p>Controller value<br>'message' = {{ $message }}</p>
+    <p>ViewConposer value<br>'view_message' = {{ $view_message }}</p>
 @endsection
 
 @section('footer')
