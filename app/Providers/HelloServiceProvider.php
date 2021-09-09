@@ -26,10 +26,9 @@ class HelloServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $validator = $this->app['validator'];
-        $validator->resolver(function($translator, $data, $rules, $messages)
+        Validator::extend('hello', function($attribute, $value, $parameters, $validator)
         {
-            return new HelloValidator($translator, $data, $rules, $messages);
-        });
+            return $value % 2 == 0;
+        })
     }
 }
