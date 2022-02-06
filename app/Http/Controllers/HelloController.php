@@ -13,15 +13,19 @@ class HelloController extends Controller
 {
     public function index(Request $request)
     {
-        if(isset($request->id))
-        {
-            $param= ['id' => $request->id];
-            $items = DB::select('select * from people2 where id = :id', $param);
-        } else {
-            $items = DB::select('select * from people2');
-        }
-
+        $items = DB::table('people2')->get();
         return view('hello.index', ['items' => $items]);
+    }
+
+    public function show(Request $request)
+    {
+        $page = $request->page;
+        $items = DB::table('people2')
+        ->offset($page * 3)
+        ->limit(3)
+        ->get();
+
+        return view('hello.show', ['items' => $items]);
     }
 
     public function post(Request $request)
@@ -49,8 +53,7 @@ class HelloController extends Controller
             'mail' => $request->mail,
             'age' => $request->age,
         ];
-        DB::insert('insert into people2 (name, mail, age) values (:name, :mail, :age)', $param);
-
+        DB::table('people2')->insert($param);
         return redirect('/hello');
     }
 
