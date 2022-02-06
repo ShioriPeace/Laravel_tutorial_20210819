@@ -13,15 +13,15 @@ class HelloController extends Controller
 {
     public function index(Request $request)
     {
-        if(isset($request->id))
-        {
-            $param= ['id' => $request->id];
-            $items = DB::select('select * from people2 where id = :id', $param);
-        } else {
-            $items = DB::select('select * from people2');
-        }
-
+        $items = DB::table('people2')->get();
         return view('hello.index', ['items' => $items]);
+    }
+
+    public function show(Request $request)
+    {
+        $id = $request->id;
+        $item = DB::table('people2')->where('id', $id)->first();
+        return view('hello.show', ['item' => $item]);
     }
 
     public function post(Request $request)
