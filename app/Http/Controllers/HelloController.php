@@ -19,12 +19,12 @@ class HelloController extends Controller
 
     public function show(Request $request)
     {
-        $min = $request->min;
-        $max = $request->max;
-
+        $page = $request->page;
         $items = DB::table('people2')
-        ->whereRaw('age >= ? and age <= ?',
-        [$min, $max])->get();
+        ->offset($page * 3)
+        ->limit(3)
+        ->get();
+
         return view('hello.show', ['items' => $items]);
     }
 
@@ -53,8 +53,7 @@ class HelloController extends Controller
             'mail' => $request->mail,
             'age' => $request->age,
         ];
-        DB::insert('insert into people2 (name, mail, age) values (:name, :mail, :age)', $param);
-
+        DB::table('people2')->insert($param);
         return redirect('/hello');
     }
 
